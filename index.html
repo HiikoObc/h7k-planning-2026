@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PhD Projects Timeline (Jan 2026 – Jun 2027)</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --shadow: 0 10px 25px rgba(0,0,0,.06);
+
+      --blue:#3b82f6;   --blue-100:#dbeafe;
+      --green:#22c55e;  --green-100:#dcfce7;
+      --purple:#a855f7; --purple-100:#f3e8ff;
+      --amber:#f59e0b;  --amber-100:#fef3c7;
+
+      --red-100:#fee2e2; --red:#ef4444;
+      --yellow-100:#fef9c3; --yellow:#ca8a04;
+      --gray-100:#f3f4f6;
+      --slate:#64748b;  --slate-100:#e2e8f0;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    .wrap{ max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+
+    .panel{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 14px;
+    }
+
+    h1{ margin:0; font-size: 26px; letter-spacing: -0.02em; }
+
+    .subtle{
+      color:var(--muted);
+      font-size: 13px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      white-space:nowrap;
+    }
+
+    .callout{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding: 12px 14px;
+      border-left: 4px solid var(--blue);
+      background: #eff6ff;
+      border-radius: 10px;
+      margin: 14px 0 18px;
+    }
+    .callout b{ color:#1e3a8a; }
+    .callout p{
+      margin:0;
+      color:#1e40af;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .icon{ width: 22px; height: 22px; flex:0 0 auto; margin-top: 2px; }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(1, minmax(0,1fr));
+      gap:12px;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 900px){
+      .cards{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fff;
+      box-shadow: 0 3px 10px rgba(0,0,0,.04);
+    }
+    .cardTop{ display:flex; align-items:center; gap:10px; margin-bottom: 6px; }
+    .dot{ width:10px; height:10px; border-radius:999px; background: var(--muted); flex:0 0 auto; }
+    .card h3{ margin:0; font-size: 15px; }
+
+    .chips{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
+    .chip{
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #fafafa;
+      color: var(--muted);
+    }
+    .chip.high{ background: var(--red-100); color:#991b1b; border-color:#fecaca; }
+    .chip.core{ background: var(--purple-100); color:#6b21a8; border-color:#e9d5ff; }
+    .chip.optional{ background: var(--gray-100); color:#374151; border-color:#e5e7eb; }
+    .chip.meta{ background: var(--slate-100); color:#334155; border-color:#cbd5e1; }
+
+    .tiny{ font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+    .tableWrap{
+      overflow-x:auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      min-width: 1080px; /* wider because we now have 18 months */
+      background:#fff;
+    }
+    thead th{
+      position: sticky;
+      top:0;
+      background: #f3f4f6;
+      z-index: 1;
+      font-size: 12px;
+      letter-spacing: .01em;
+    }
+    th, td{
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 10px 10px;
+      text-align:center;
+      vertical-align: middle;
+    }
+    th:first-child, td:first-child{
+      text-align:left;
+      min-width: 240px;
+      font-weight: 600;
+    }
+    tr:last-child td{ border-bottom:none; }
+    th:last-child, td:last-child{ border-right:none; }
+
+    .monthBtn{
+      cursor:pointer;
+      user-select:none;
+      transition: background .12s ease;
+    }
+    .monthBtn:hover{ background:#e5e7eb; }
+    .monthBtn.selected{ background:#dbeafe; }
+
+    .cellFill{ background: transparent; }
+    .cellFill.blue{ background: var(--blue-100); }
+    .cellFill.green{ background: var(--green-100); }
+    .cellFill.purple{ background: var(--purple-100); }
+    .cellFill.amber{ background: var(--amber-100); }
+    .cellFill.slate{ background: var(--slate-100); }
+
+    .cellMark{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 20px;
+      height: 20px;
+      margin: 0 auto;
+    }
+    .markDot{ width: 8px; height: 8px; border-radius: 999px; background: #111827; }
+    .markMilestone{ font-size: 15px; line-height: 1; }
+
+    .details{
+      margin-top: 18px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .detailsHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 10px;
+    }
+    .details h2{ margin:0; font-size: 16px; color:#1e3a8a; }
+    .closeBtn{
+      border:none;
+      background: transparent;
+      color:#2563eb;
+      cursor:pointer;
+      font-size: 13px;
+      padding: 6px 8px;
+      border-radius: 8px;
+    }
+    .closeBtn:hover{ background: rgba(37,99,235,.08); }
+
+    .activity{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,.04);
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .activityMain{ flex:1; }
+    .activityProj{ font-weight: 650; font-size: 13px; margin: 0 0 2px 0; }
+    .activityTask{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.35; }
+
+    .badge{
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      white-space:nowrap;
+      align-self:flex-start;
+      margin-top: 2px;
+    }
+    .badge.active{ background: var(--green-100); color:#166534; border-color:#86efac; }
+    .badge.planned{ background: var(--blue-100); color:#1e40af; border-color:#93c5fd; }
+    .badge.milestone{ background: var(--red-100); color:#991b1b; border-color:#fecaca; }
+    .badge.decision{ background: var(--yellow-100); color:#854d0e; border-color:#fde68a; }
+    .badge.conditional{ background: var(--gray-100); color:#374151; border-color:#e5e7eb; }
+    .badge.meta{ background: var(--slate-100); color:#334155; border-color:#cbd5e1; }
+
+    .legend{
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .legendRow{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .legend h4{ margin:0 0 8px 0; font-size: 13px; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="panel">
+      <div class="header">
+        <div><h1>PhD Projects Timeline</h1></div>
+        <div class="subtle" title="Timeline window">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <path d="M16 2v4M8 2v4M3 10h18"></path>
+          </svg>
+          <span>Jan 2026 – Jun 2027</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+          <circle cx="12" cy="12" r="9"></circle>
+          <circle cx="12" cy="12" r="5"></circle>
+          <circle cx="12" cy="12" r="1.5" fill="#2563eb"></circle>
+        </svg>
+        <div>
+          <p><b>Key Deadlines</b></p>
+          <p>
+            <b>End Feb 2026:</b> Time-lag + Fringe core results ready |
+            <b> End Mar 2026:</b> AfAS presentation |
+            <b> Apr 2026:</b> AMT CDR presentation |
+            <b> Oct 31, 2026:</b> ideal thesis submission |
+            <b> May–Jun 2027:</b> realistic final submission &amp; defence window
+          </p>
+        </div>
+      </div>
+
+      <div id="cards" class="cards"></div>
+
+      <div class="tableWrap">
+        <table id="timelineTable" aria-label="Project timeline table">
+          <thead>
+            <tr id="monthHeaderRow">
+              <th>Project</th>
+            </tr>
+          </thead>
+          <tbody id="timelineBody"></tbody>
+        </table>
+      </div>
+
+      <div id="details" style="display:none;"></div>
+
+      <div class="legend">
+        <h4>Status Legend:</h4>
+        <div class="legendRow">
+          <span class="badge active">active</span>
+          <span class="badge planned">planned</span>
+          <span class="badge milestone">milestone</span>
+          <span class="badge decision">decision</span>
+          <span class="badge conditional">conditional</span>
+          <span class="badge meta">milestone (overall)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -----------------------------
+    // Months: Jan 2026 -> Jun 2027
+    // -----------------------------
+    const months = [
+      "Jan 2026","Feb 2026","Mar 2026","Apr 2026","May 2026","Jun 2026",
+      "Jul 2026","Aug 2026","Sep 2026","Oct 2026","Nov 2026","Dec 2026",
+      "Jan 2027","Feb 2027","Mar 2027","Apr 2027","May 2027","Jun 2027"
+    ];
+
+    // Index guide:
+    // 0 Jan26, 1 Feb26, 2 Mar26, 3 Apr26, ... 11 Dec26, 12 Jan27, ... 17 Jun27
+
+    // -----------------------------
+    // Projects + activities
+    // -----------------------------
+    const projects = [
+      {
+        id: 1,
+        name: "Time-lag Analysis",
+        color: "blue",
+        deadline: "End Feb 2026 (AfAS prep)",
+        priority: "HIGH",
+        activities: [
+          { months: [0], task: "Clean/verify scripts (ZDCF, ICCF, PyROA, JAVELIN) + standardize preprocessing for 3C279", status: "active" },
+          { months: [1], task: "Rerun analysis on 3C279 + apply to 2–4 additional sources + finalize figures for AfAS", status: "active" },
+          { months: [2], task: "AfAS presentation + small refinements if needed", status: "milestone" },
+          { months: [3], task: "Post-conference: plan paper outline (if time)", status: "planned" },
+          { months: [4,5], task: "If extending: add more sources OR start paper draft", status: "planned" },
+          { months: [6,7], task: "Paper writing (if ready)", status: "planned" },
+          { months: [8,9], task: "Finalize paper (if not done)", status: "planned" },
+          { months: [10,11,12,13], task: "Revisions (if paper submitted)", status: "planned" },
+          { months: [14,15,16], task: "Final paper tweaks (if needed)", status: "planned" }
+        ]
+      },
+      {
+        id: 2,
+        name: "Calibration Pipeline (MAIN)",
+        color: "purple",
+        deadline: "Core thesis work (2026–2027)",
+        priority: "CORE",
+        activities: [
+          { months: [0], task: "Reduce IRAM test data in GILDAS + document explicit vs black-box corrections", status: "active" },
+          { months: [1], task: "Draft/submit IRAM 30m proposal + start Python (pointing/opacity)", status: "active" },
+          { months: [2], task: "Continue Python corrections (gain models)", status: "active" },
+          { months: [3], task: "Implement full Python pipeline + compare with GILDAS outputs", status: "planned" },
+          { months: [4,5], task: "Reduce new IRAM data (if awarded) + apply/validate Python pipeline", status: "conditional" },
+          { months: [6,7], task: "Refine pipeline stability + write main thesis chapter + prep publication", status: "planned" },
+          { months: [8,9], task: "Final pipeline validations + thesis integration push", status: "planned" },
+          { months: [10,11,12,13], task: "Thesis drafting/revisions (if not submitted) + pipeline chapter polishing", status: "planned" },
+          { months: [14,15,16], task: "Complete remaining validations + final write-up", status: "planned" },
+          { months: [17], task: "Final submission/defence window (if delayed)", status: "milestone" }
+        ]
+      },
+      {
+        id: 3,
+        name: "SYMBA Simulations (Conditional)",
+        color: "amber",
+        deadline: "Decision by Apr 2026",
+        priority: "OPTIONAL",
+        activities: [
+          { months: [2], task: "Decide if worth pursuing (based on Project 4 results)", status: "decision" },
+          { months: [3], task: "If continuing: define one clear metric + start focused simulations", status: "conditional" },
+          { months: [4,5], task: "If continuing: generate final result; otherwise drop cleanly", status: "conditional" }
+        ]
+      },
+      {
+        id: 4,
+        name: "Fringe Detectability (Monte Carlo)",
+        color: "green",
+        deadline: "End Feb 2026 (CDR prep) + Apr 2026 presentation",
+        priority: "HIGH",
+        activities: [
+          { months: [0], task: "Finalize coherence-time handling + integrate PWV→opacity processing + parse ALMA/NOEMA ANTAB files", status: "active" },
+          { months: [1], task: "Complete Monte Carlo framework + run simulations + generate plots", status: "active" },
+          { months: [2], task: "Minor refinements if requested", status: "planned" },
+          { months: [3], task: "AMT CDR presentation (April)", status: "milestone" },
+          { months: [4,5], task: "Wrap up + decide whether to write a short paper", status: "planned" },
+          { months: [10,11,12,13], task: "Revisions (if fringe paper is pursued/submitted)", status: "conditional" }
+        ]
+      },
+      {
+        id: 5,
+        name: "Overall PhD Milestones",
+        color: "slate",
+        deadline: "Thesis + papers",
+        priority: "META",
+        activities: [
+          { months: [0], task: "Focus on short-term projects (Time-lag + Fringe) for upcoming presentations", status: "meta" },
+          { months: [1], task: "End of month checkpoint: Time-lag conference-ready; Fringe core results near-complete", status: "meta" },
+          { months: [2], task: "AfAS conference presentation (end of March) + monitor IRAM proposal status", status: "meta" },
+          { months: [3], task: "AMT CDR presentation (April) + if IRAM awarded, prep for new data", status: "meta" },
+          { months: [4,5], task: "Decide thesis path: 2 papers + thesis vs 3 papers (based on progress)", status: "meta" },
+          { months: [6,7], task: "Ideal checkpoint: core results ready for thesis integration", status: "meta" },
+          { months: [9], task: "Ideal thesis submission target (Oct 31, 2026) – if feasible", status: "meta" },
+          { months: [10,11,12,13], task: "Paper submissions/reviews + thesis drafting (if not submitted)", status: "meta" },
+          { months: [16,17], task: "Realistic final thesis submission (May–Jun 2027) + defence window", status: "meta" }
+        ]
+      }
+    ];
+
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    const colorHex = {
+      blue:   getComputedStyle(document.documentElement).getPropertyValue("--blue").trim(),
+      green:  getComputedStyle(document.documentElement).getPropertyValue("--green").trim(),
+      purple: getComputedStyle(document.documentElement).getPropertyValue("--purple").trim(),
+      amber:  getComputedStyle(document.documentElement).getPropertyValue("--amber").trim(),
+      slate:  getComputedStyle(document.documentElement).getPropertyValue("--slate").trim(),
+    };
+
+    function getMonthActivities(monthIndex){
+      const out = [];
+      projects.forEach(p => {
+        p.activities.forEach(a => {
+          if (a.months.includes(monthIndex)) {
+            out.push({ project: p.name, task: a.task, status: a.status, color: p.color, priority: p.priority });
+          }
+        });
+      });
+      return out;
+    }
+
+    function getProjectMonthSummary(project, monthIndex){
+      const items = project.activities.filter(a => a.months.includes(monthIndex));
+      if (!items.length) return null;
+
+      const hasMilestone = items.some(i => i.status === "milestone" || i.status === "meta");
+      return {
+        count: items.length,
+        hasMilestone,
+        statuses: [...new Set(items.map(i => i.status))]
+      };
+    }
+
+    function statusBadgeClass(status){
+      if (status === "active") return "active";
+      if (status === "planned") return "planned";
+      if (status === "milestone") return "milestone";
+      if (status === "decision") return "decision";
+      if (status === "conditional") return "conditional";
+      if (status === "meta") return "meta";
+      return "planned";
+    }
+
+    // -----------------------------
+    // Render: Project cards
+    // -----------------------------
+    function renderCards(){
+      const cards = document.getElementById("cards");
+      cards.innerHTML = "";
+
+      projects.forEach(p => {
+        const el = document.createElement("div");
+        el.className = "card";
+
+        const priorityClass =
+          p.priority === "HIGH" ? "high" :
+          p.priority === "CORE" ? "core" :
+          p.priority === "OPTIONAL" ? "optional" :
+          "meta";
+
+        const label = p.priority === "META" ? "META" : p.priority;
+
+        el.innerHTML = `
+          <div class="cardTop">
+            <span class="dot" style="background:${colorHex[p.color]}"></span>
+            <h3>${p.name}</h3>
+          </div>
+          <div class="chips">
+            <span class="chip ${priorityClass}">${label}</span>
+            <span class="chip">${p.deadline}</span>
+          </div>
+          <div class="tiny">${p.activities.length} activities planned</div>
+        `;
+        cards.appendChild(el);
+      });
+    }
+
+    // -----------------------------
+    // Render: Table header (months)
+    // -----------------------------
+    let selectedMonth = null;
+
+    function renderHeader(){
+      const row = document.getElementById("monthHeaderRow");
+      while (row.children.length > 1) row.removeChild(row.lastChild);
+
+      months.forEach((m, idx) => {
+        const th = document.createElement("th");
+        th.textContent = m;
+        th.className = "monthBtn" + (selectedMonth === idx ? " selected" : "");
+        th.addEventListener("click", () => {
+          selectedMonth = idx;
+          renderHeader();
+          renderDetails();
+        });
+        row.appendChild(th);
+      });
+    }
+
+    // -----------------------------
+    // Render: Table body
+    // -----------------------------
+    function renderBody(){
+      const body = document.getElementById("timelineBody");
+      body.innerHTML = "";
+
+      projects.forEach(p => {
+        const tr = document.createElement("tr");
+
+        const td0 = document.createElement("td");
+        td0.innerHTML = `
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="dot" style="width:9px;height:9px;background:${colorHex[p.color]}"></span>
+            <span>${p.name}</span>
+          </div>
+        `;
+        tr.appendChild(td0);
+
+        months.forEach((_, monthIdx) => {
+          const td = document.createElement("td");
+          const summary = getProjectMonthSummary(p, monthIdx);
+
+          td.className = "cellFill" + (summary ? (" " + p.color) : "");
+
+          if (summary) {
+            const mark = document.createElement("span");
+            mark.className = "cellMark";
+
+            if (summary.hasMilestone) {
+              mark.innerHTML = `<span class="markMilestone" title="milestone">⚠️</span>`;
+            } else if (summary.count === 1) {
+              mark.innerHTML = `<span class="markDot" style="background:${colorHex[p.color]}" title="activity"></span>`;
+            } else {
+              mark.innerHTML = `<span title="${summary.count} activities" style="
+                display:inline-flex;align-items:center;justify-content:center;
+                width:18px;height:18px;border-radius:999px;
+                border:1px solid rgba(0,0,0,.12);
+                font-size:11px;color:#111827;background:#fff;">
+                ${summary.count}
+              </span>`;
+            }
+
+            td.appendChild(mark);
+          }
+
+          tr.appendChild(td);
+        });
+
+        body.appendChild(tr);
+      });
+    }
+
+    // -----------------------------
+    // Render: Month details panel
+    // -----------------------------
+    function renderDetails(){
+      const details = document.getElementById("details");
+      if (selectedMonth === null) {
+        details.style.display = "none";
+        details.innerHTML = "";
+        return;
+      }
+
+      const items = getMonthActivities(selectedMonth);
+
+      details.style.display = "block";
+      details.className = "details";
+      details.innerHTML = `
+        <div class="detailsHeader">
+          <h2>${months[selectedMonth]} – Activities</h2>
+          <button class="closeBtn" id="closeDetailsBtn">Close details</button>
+        </div>
+        <div id="detailList"></div>
+      `;
+
+      document.getElementById("closeDetailsBtn").addEventListener("click", () => {
+        selectedMonth = null;
+        renderHeader();
+        renderDetails();
+      });
+
+      const list = document.getElementById("detailList");
+
+      // Sort so "Overall PhD Milestones" show first (handy), then CORE, then HIGH, then OPTIONAL.
+      const priorityRank = (p) => (p === "META" ? 0 : p === "CORE" ? 1 : p === "HIGH" ? 2 : 3);
+
+      items
+        .sort((a,b) => priorityRank(a.priority) - priorityRank(b.priority))
+        .forEach(item => {
+          const row = document.createElement("div");
+          row.className = "activity";
+          row.innerHTML = `
+            <span class="dot" style="margin-top:4px;background:${colorHex[item.color]}"></span>
+            <div class="activityMain">
+              <p class="activityProj">${item.project}</p>
+              <p class="activityTask">${item.task}</p>
+            </div>
+            <span class="badge ${statusBadgeClass(item.status)}">${item.status === "meta" ? "milestone" : item.status}</span>
+          `;
+          list.appendChild(row);
+        });
+
+      if (!items.length) {
+        list.innerHTML = `<div class="tiny">No activities logged for this month.</div>`;
+      }
+    }
+
+    // -----------------------------
+    // Init
+    // -----------------------------
+    renderCards();
+    renderHeader();
+    renderBody();
+    renderDetails();
+  </script>
+</body>
+</html>
+
