@@ -21,7 +21,11 @@
       --red-100:#fee2e2; --red:#ef4444;
       --yellow-100:#fef9c3; --yellow:#ca8a04;
       --gray-100:#f3f4f6;
+
       --slate:#64748b;  --slate-100:#e2e8f0;
+
+      --focus:#2563eb;
+      --focus-100: rgba(37,99,235,.10);
     }
 
     *{ box-sizing:border-box; }
@@ -84,7 +88,7 @@
       display:grid;
       grid-template-columns: repeat(1, minmax(0,1fr));
       gap:12px;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
     @media (min-width: 900px){
       .cards{ grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -96,7 +100,20 @@
       padding: 12px 14px;
       background: #fff;
       box-shadow: 0 3px 10px rgba(0,0,0,.04);
+      cursor: pointer;
+      transition: transform .10s ease, box-shadow .10s ease, border-color .10s ease;
+      outline: none;
     }
+    .card:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+      border-color: #d1d5db;
+    }
+    .card:focus{
+      box-shadow: 0 0 0 4px var(--focus-100);
+      border-color: #93c5fd;
+    }
+
     .cardTop{ display:flex; align-items:center; gap:10px; margin-bottom: 6px; }
     .dot{ width:10px; height:10px; border-radius:999px; background: var(--muted); flex:0 0 auto; }
     .card h3{ margin:0; font-size: 15px; }
@@ -123,6 +140,50 @@
 
     .tiny{ font-size: 12px; color: var(--muted); margin-top: 8px; }
 
+    /* --- Project Description Panel --- */
+    .projectPanel{
+      margin: 10px 0 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      display:none;
+    }
+    .projectPanelHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 8px;
+    }
+    .projectPanelTitle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .projectPanel h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+    .projectPanel p{
+      margin: 8px 0 0;
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+    .closeBtn{
+      border:none;
+      background: transparent;
+      color:#2563eb;
+      cursor:pointer;
+      font-size: 13px;
+      padding: 6px 8px;
+      border-radius: 8px;
+    }
+    .closeBtn:hover{ background: rgba(37,99,235,.08); }
+
     .tableWrap{
       overflow-x:auto;
       border: 1px solid var(--border);
@@ -131,7 +192,7 @@
     table{
       width:100%;
       border-collapse: collapse;
-      min-width: 1080px; /* wider because we now have 18 months */
+      min-width: 1080px;
       background:#fff;
     }
     thead th{
@@ -189,6 +250,7 @@
       border: 1px solid #bfdbfe;
       border-radius: 12px;
       padding: 14px;
+      display:none;
     }
     .detailsHeader{
       display:flex;
@@ -198,16 +260,6 @@
       margin-bottom: 10px;
     }
     .details h2{ margin:0; font-size: 16px; color:#1e3a8a; }
-    .closeBtn{
-      border:none;
-      background: transparent;
-      color:#2563eb;
-      cursor:pointer;
-      font-size: 13px;
-      padding: 6px 8px;
-      border-radius: 8px;
-    }
-    .closeBtn:hover{ background: rgba(37,99,235,.08); }
 
     .activity{
       background:#fff;
@@ -219,7 +271,19 @@
       align-items:flex-start;
       gap:10px;
       margin-top: 10px;
+      cursor: pointer;
+      transition: border-color .10s ease, box-shadow .10s ease;
+      outline: none;
     }
+    .activity:hover{
+      border-color: #d1d5db;
+      box-shadow: 0 8px 18px rgba(0,0,0,.06);
+    }
+    .activity:focus{
+      box-shadow: 0 0 0 4px var(--focus-100);
+      border-color: #93c5fd;
+    }
+
     .activityMain{ flex:1; }
     .activityProj{ font-weight: 650; font-size: 13px; margin: 0 0 2px 0; }
     .activityTask{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.35; }
@@ -239,6 +303,46 @@
     .badge.decision{ background: var(--yellow-100); color:#854d0e; border-color:#fde68a; }
     .badge.conditional{ background: var(--gray-100); color:#374151; border-color:#e5e7eb; }
     .badge.meta{ background: var(--slate-100); color:#334155; border-color:#cbd5e1; }
+
+    /* --- Activity Detail Panel (inside month details) --- */
+    .activityDetail{
+      margin-top: 12px;
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      padding: 12px;
+      display:none;
+    }
+    .activityDetailHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom: 8px;
+    }
+    .activityDetailTitle{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .activityDetail h3{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color:#1f2937;
+    }
+    .activityDetail p{
+      margin: 8px 0 0;
+      color:#334155;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+    .hint{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
 
     .legend{
       margin-top: 18px;
@@ -282,7 +386,11 @@
         </div>
       </div>
 
+      <!-- Project cards -->
       <div id="cards" class="cards"></div>
+
+      <!-- Project description panel -->
+      <div id="projectPanel" class="projectPanel" aria-live="polite"></div>
 
       <div class="tableWrap">
         <table id="timelineTable" aria-label="Project timeline table">
@@ -295,7 +403,8 @@
         </table>
       </div>
 
-      <div id="details" style="display:none;"></div>
+      <!-- Month details panel -->
+      <div id="details" class="details"></div>
 
       <div class="legend">
         <h4>Status Legend:</h4>
@@ -321,99 +430,512 @@
       "Jan 2027","Feb 2027","Mar 2027","Apr 2027","May 2027","Jun 2027"
     ];
 
-    // Index guide:
-    // 0 Jan26, 1 Feb26, 2 Mar26, 3 Apr26, ... 11 Dec26, 12 Jan27, ... 17 Jun27
+    // -----------------------------
+    // Project ordering requested by you
+    // -----------------------------
+    const displayOrder = [
+      "Calibration Pipeline (MAIN)",
+      "Fringe Detectability (Monte Carlo)",
+      "Time-lag Analysis",
+      "SYMBA Simulations (Conditional)",
+      "Overall PhD Milestones"
+    ];
+
+    function sortProjects(list){
+      const rank = new Map(displayOrder.map((name, idx) => [name, idx]));
+      return [...list].sort((a,b) => (rank.get(a.name) ?? 999) - (rank.get(b.name) ?? 999));
+    }
 
     // -----------------------------
-    // Projects + activities
+    // Projects + activities (now include project descriptions + activity details)
     // -----------------------------
-    const projects = [
-      {
-        id: 1,
-        name: "Time-lag Analysis",
-        color: "blue",
-        deadline: "End Feb 2026 (AfAS prep)",
-        priority: "HIGH",
-        activities: [
-          { months: [0], task: "Clean/verify scripts (ZDCF, ICCF, PyROA, JAVELIN) + standardize preprocessing for 3C279", status: "active" },
-          { months: [1], task: "Rerun analysis on 3C279 + apply to 2–4 additional sources + finalize figures for AfAS", status: "active" },
-          { months: [2], task: "AfAS presentation + small refinements if needed", status: "milestone" },
-          { months: [3], task: "Post-conference: plan paper outline (if time)", status: "planned" },
-          { months: [4,5], task: "If extending: add more sources OR start paper draft", status: "planned" },
-          { months: [6,7], task: "Paper writing (if ready)", status: "planned" },
-          { months: [8,9], task: "Finalize paper (if not done)", status: "planned" },
-          { months: [10,11,12,13], task: "Revisions (if paper submitted)", status: "planned" },
-          { months: [14,15,16], task: "Final paper tweaks (if needed)", status: "planned" }
-        ]
-      },
+    const projects = sortProjects([
       {
         id: 2,
         name: "Calibration Pipeline (MAIN)",
         color: "purple",
         deadline: "Core thesis work (2026–2027)",
         priority: "CORE",
+        description:
+`This is the core project of my PhD. I am building a Python-based calibration pipeline for single-dish millimetre observations of blazars, with a focus on the Africa Millimeter Telescope (AMT).
+
+Raw telescope data does not directly tell me how bright a source really is. The signal is affected by pointing errors, atmospheric opacity, elevation-dependent gain changes, and (later) instrumental polarisation.
+
+My goal is to correct for these effects step by step in a transparent way, where I understand and can justify every correction physically.
+
+How I approach it:
+• I first reduce data using GILDAS/MIRA (standard tool)
+• I document what GILDAS corrects explicitly vs what is “black box”
+• I implement equivalent corrections in Python using equations, atmospheric models, and gain parameterisations
+• I compare against GILDAS where possible, and explain differences where not possible
+
+Why IRAM matters:
+To properly validate the pipeline, I need well-designed observations — so I must submit an IRAM 30m proposal for new data tailored for pipeline testing.
+
+End result:
+A working and validated Python pipeline forming the main thesis chapter and likely a journal paper.`,
         activities: [
-          { months: [0], task: "Reduce IRAM test data in GILDAS + document explicit vs black-box corrections", status: "active" },
-          { months: [1], task: "Draft/submit IRAM 30m proposal + start Python (pointing/opacity)", status: "active" },
-          { months: [2], task: "Continue Python corrections (gain models)", status: "active" },
-          { months: [3], task: "Implement full Python pipeline + compare with GILDAS outputs", status: "planned" },
-          { months: [4,5], task: "Reduce new IRAM data (if awarded) + apply/validate Python pipeline", status: "conditional" },
-          { months: [6,7], task: "Refine pipeline stability + write main thesis chapter + prep publication", status: "planned" },
-          { months: [8,9], task: "Final pipeline validations + thesis integration push", status: "planned" },
-          { months: [10,11,12,13], task: "Thesis drafting/revisions (if not submitted) + pipeline chapter polishing", status: "planned" },
-          { months: [14,15,16], task: "Complete remaining validations + final write-up", status: "planned" },
-          { months: [17], task: "Final submission/defence window (if delayed)", status: "milestone" }
+          {
+            months: [0],
+            task: "Reduce IRAM test data in GILDAS + document explicit vs black-box corrections",
+            status: "active",
+            detail:
+`Goal: I produce “reference reductions” in GILDAS and document what it did so I can reproduce the same logic transparently in Python.
+
+What I do (high-level):
+• Reduce the IRAM test dataset in GILDAS/MIRA to get calibrated outputs (the baseline reference).
+• Write down exactly which steps are explicit (I control them) vs implicit/black-box (bundled internally).
+• Track which quantities I can extract from GILDAS (e.g., pointing offsets, opacity/skydip products, calibration tables).
+• Produce a short note: “If I change X in GILDAS, what visibly changes in the output?”
+
+Deliverable for Jan:
+A small “GILDAS behaviour map” + reduced dataset + list of quantities I can compare against Python.`
+          },
+          {
+            months: [1],
+            task: "Draft/submit IRAM 30m proposal + start Python (pointing/opacity)",
+            status: "active",
+            detail:
+`Goal: I secure new data designed for pipeline validation, while starting Python implementation immediately.
+
+Proposal side:
+• Define what observations I need (scan types, cadence, calibrators, required weather range).
+• Write a short science+technical justification focused on pipeline validation use-case.
+• Submit in the Feb–Mar window (depending on IRAM call timing).
+
+Python side (start simple):
+• Implement pointing correction first (most explicit).
+• Implement opacity correction next (using skydip/τ model assumptions).
+• Validate each piece on a small subset before scaling up.
+
+Deliverable for Feb:
+Submitted proposal draft + first working pointing/opacity functions with test plots.`
+          },
+          {
+            months: [2],
+            task: "Continue Python corrections (gain models)",
+            status: "active",
+            detail:
+`Goal: I add the elevation-dependent gain correction and decide how to handle black-box differences.
+
+What I do:
+• Implement gain-elevation correction with a parameterised gain curve (or polynomial form).
+• Compare “before vs after” flux stability across elevation.
+• Document where GILDAS applies gain implicitly and what I can replicate explicitly.
+• Decide on a “physics-first pipeline” strategy: reproduce output where possible, explain differences where not.
+
+Deliverable for Mar:
+A working gain-correction module + validation plots showing improvement vs elevation.`
+          },
+          {
+            months: [3],
+            task: "Implement full Python pipeline + compare with GILDAS outputs",
+            status: "planned",
+            detail:
+`Goal: I run the full pipeline end-to-end and compare against GILDAS systematically.
+
+What I do:
+• Pipeline order: raw → pointing → opacity → gain → flux scale → diagnostics.
+• Define comparison metrics: residual scatter, stability vs elevation, repeatability across days.
+• Create a “comparison notebook/report” that I can show to Ioannis/supervisors.
+
+Deliverable for Apr:
+An end-to-end Python pipeline run + a clear comparison report vs GILDAS.`
+          },
+          {
+            months: [4,5],
+            task: "Reduce new IRAM data (if awarded) + apply/validate Python pipeline",
+            status: "conditional",
+            detail:
+`If the IRAM proposal is awarded:
+• Reduce the new dataset in GILDAS (reference).
+• Run the Python pipeline on the same dataset.
+• Validate on the exact observing design (cadence, calibrators, weather coverage).
+• Update pipeline robustness and error propagation.
+
+Deliverable for May–Jun:
+Validation on real tailored data + “pipeline is ready for thesis chapter”.`
+          },
+          {
+            months: [6,7],
+            task: "Refine pipeline stability + write main thesis chapter + prep publication",
+            status: "planned",
+            detail:
+`Goal: I stop “building” and start “locking down”.
+
+What I do:
+• Freeze pipeline version + document it (inputs, outputs, assumptions).
+• Write thesis chapter structure: methods, validation, limitations, future polarisation extension.
+• Prepare paper outline and key figures (workflow diagram, validation plots).
+
+Deliverable:
+A stable pipeline + thesis chapter draft + paper skeleton.`
+          },
+          {
+            months: [8,9],
+            task: "Final pipeline validations + thesis integration push",
+            status: "planned",
+            detail:
+`Goal: I ensure results are thesis-ready and defensible.
+
+What I do:
+• Final checks: edge cases, missing data, noisy scans.
+• Clear uncertainty handling and diagnostic plots.
+• Integrate pipeline results into the thesis narrative.
+
+Deliverable:
+Final validation pack + thesis integration complete (if aiming Oct 31).`
+          },
+          {
+            months: [10,11,12,13],
+            task: "Thesis drafting/revisions (if not submitted) + pipeline chapter polishing",
+            status: "planned",
+            detail:
+`Goal: finish writing, respond to feedback, strengthen clarity.
+
+Deliverable:
+A near-final thesis version ready for submission track.`
+          },
+          {
+            months: [14,15,16],
+            task: "Complete remaining validations + final write-up",
+            status: "planned",
+            detail:
+`Goal: close any remaining gaps and ensure the pipeline chapter is “bulletproof”.`
+          },
+          {
+            months: [17],
+            task: "Final submission/defence window (if delayed)",
+            status: "milestone",
+            detail:
+`Goal: submit final thesis and prepare defence materials (slides, key plots, narrative).`
+          }
         ]
       },
-      {
-        id: 3,
-        name: "SYMBA Simulations (Conditional)",
-        color: "amber",
-        deadline: "Decision by Apr 2026",
-        priority: "OPTIONAL",
-        activities: [
-          { months: [2], task: "Decide if worth pursuing (based on Project 4 results)", status: "decision" },
-          { months: [3], task: "If continuing: define one clear metric + start focused simulations", status: "conditional" },
-          { months: [4,5], task: "If continuing: generate final result; otherwise drop cleanly", status: "conditional" }
-        ]
-      },
+
       {
         id: 4,
         name: "Fringe Detectability (Monte Carlo)",
         color: "green",
         deadline: "End Feb 2026 (CDR prep) + Apr 2026 presentation",
         priority: "HIGH",
+        description:
+`This project answers a practical VLBI question: under realistic atmospheric conditions, how often would AMT actually detect usable fringes at 230 GHz?
+
+I do not assume perfect weather. I use real distributions of opacity (from PWV), coherence time, temperature, and elevation.
+
+Method (Monte Carlo):
+At each small time step, I randomly draw a coherence time and opacity value, compute AMT SEFD, combine with ALMA/NOEMA SEFDs, compute SNR, and test if it exceeds a detection threshold. Repeating many nights gives a distribution of outcomes (not a single number).
+
+End result:
+“On average, AMT gets detectable fringes X% of the time” + behaviour on bad vs good nights, directly relevant for AMT planning and CDR.`,
         activities: [
-          { months: [0], task: "Finalize coherence-time handling + integrate PWV→opacity processing + parse ALMA/NOEMA ANTAB files", status: "active" },
-          { months: [1], task: "Complete Monte Carlo framework + run simulations + generate plots", status: "active" },
-          { months: [2], task: "Minor refinements if requested", status: "planned" },
-          { months: [3], task: "AMT CDR presentation (April)", status: "milestone" },
-          { months: [4,5], task: "Wrap up + decide whether to write a short paper", status: "planned" },
-          { months: [10,11,12,13], task: "Revisions (if fringe paper is pursued/submitted)", status: "conditional" }
+          {
+            months: [0],
+            task: "Finalize coherence-time handling + integrate PWV→opacity processing + parse ALMA/NOEMA ANTAB files",
+            status: "active",
+            detail:
+`Goal: all input ingredients are clean and ready for the Monte Carlo runs.
+
+What I do:
+• Coherence time: clean / filter failed fits, apply correction factor when received.
+• PWV→τ: confirm conversion and seasonal (Mar–Apr) distributions and percentiles.
+• ANTAB: extract Tsys + DPFU (and optionally POLY gain curves) to derive SEFD vs elevation for ALMA/NOEMA.
+• Sanity checks: compare derived SEFD scales to expected ranges.
+
+Deliverable for Jan:
+Input datasets ready + quick diagnostic plots confirming everything is consistent.`
+          },
+          {
+            months: [1],
+            task: "Complete Monte Carlo framework + run simulations + generate plots",
+            status: "active",
+            detail:
+`Goal: run the full Monte Carlo and get a fringe success distribution.
+
+What I do:
+• Implement night simulation: step through time, random draws, compute SNR, success/fail.
+• Run many realizations (e.g., thousands) for Sgr A* and M87* tracks.
+• Output: mean success %, percentile bands, “good vs bad night” bounds.
+• Plot: success distribution, time-of-night success curves, dependence on threshold.
+
+Deliverable for Feb:
+Core results + plots ready for discussion and CDR preparation.`
+          },
+          {
+            months: [2],
+            task: "Minor refinements if requested",
+            status: "planned",
+            detail:
+`Goal: incorporate feedback quickly without rewriting the framework.
+
+Examples:
+• change detection threshold, integration time assumptions, add wind/correction factor updates.
+Deliverable: updated results with clear “what changed” notes.`
+          },
+          {
+            months: [3],
+            task: "AMT CDR presentation (April)",
+            status: "milestone",
+            detail:
+`Goal: present results clearly: what % of time fringes are likely, and what controls success/failure.`
+          },
+          {
+            months: [4,5],
+            task: "Wrap up + decide whether to write a short paper",
+            status: "planned",
+            detail:
+`Goal: decide whether this becomes a short publication or stays as an internal technical result.
+
+Deliverable:
+Either a clean “final report” or a paper outline + core figures.`
+          },
+          {
+            months: [10,11,12,13],
+            task: "Revisions (if fringe paper is pursued/submitted)",
+            status: "conditional",
+            detail:
+`If a paper is submitted, this time is reserved for revision cycles and responding to reviewer comments.`
+          }
         ]
       },
+
+      {
+        id: 1,
+        name: "Time-lag Analysis",
+        color: "blue",
+        deadline: "End Feb 2026 (AfAS prep)",
+        priority: "HIGH",
+        description:
+`In this project, I answer a simple question: when a blazar flares, do I see that flare first at high frequencies or low frequencies — and by how much time?
+
+Because of opacity effects in the jet, the same flare does not appear at all frequencies at the same time. Measuring lags between frequencies tells me about where along the jet the emission comes from and how disturbances move through the jet.
+
+Data:
+• Metsähovi 37 GHz light curves
+• ALMA calibrator light curves at ~90, ~230, ~345 GHz
+
+Methods:
+I estimate lags using ZDCF, ICCF, JAVELIN, and PyROA. Part of the work is understanding why methods sometimes agree and sometimes disagree.
+
+End result:
+Lag measurements with uncertainties + physical interpretation, suitable for AfAS and later a paper.`,
+        activities: [
+          {
+            months: [0],
+            task: "Clean/verify scripts (ZDCF, ICCF, PyROA, JAVELIN) + standardize preprocessing for 3C279",
+            status: "active",
+            detail:
+`Goal: make the pipeline trustworthy and repeatable.
+
+What I do:
+• Standardize input format, time systems, and sign conventions for lags.
+• Confirm interpolation/resampling assumptions (ICCF) and priors (JAVELIN/PyROA).
+• Rerun 3C279 end-to-end and confirm I can reproduce my own results reliably.
+
+Deliverable for Jan:
+One “gold standard” run on 3C279 + clean scripts.`
+          },
+          {
+            months: [1],
+            task: "Rerun analysis on 3C279 + apply to 2–4 additional sources + finalize figures for AfAS",
+            status: "active",
+            detail:
+`Goal: strengthen the results beyond a single test case.
+
+What I do:
+• Run the same methods on additional sources with enough overlap.
+• Compare method agreement and explain differences.
+• Finalize AfAS plots: lag vs frequency, confidence intervals, method comparison.
+
+Deliverable for Feb:
+Conference-ready plots + summary interpretation.`
+          },
+          {
+            months: [2],
+            task: "AfAS presentation + small refinements if needed",
+            status: "milestone",
+            detail:
+`Goal: deliver a clear story: measured lags, method robustness, and physical interpretation.`
+          },
+          {
+            months: [3],
+            task: "Post-conference: plan paper outline (if time)",
+            status: "planned",
+            detail:
+`Goal: turn results into a structured paper plan while everything is fresh.`
+          },
+          {
+            months: [4,5],
+            task: "If extending: add more sources OR start paper draft",
+            status: "planned",
+            detail:
+`Goal: either broaden the sample or convert the conference results into a draft.`
+          },
+          {
+            months: [6,7],
+            task: "Paper writing (if ready)",
+            status: "planned",
+            detail:
+`Goal: write the full methods+results section and lock figures.`
+          },
+          {
+            months: [8,9],
+            task: "Finalize paper (if not done)",
+            status: "planned",
+            detail:
+`Goal: submit or be ready to submit.`
+          },
+          {
+            months: [10,11,12,13],
+            task: "Revisions (if paper submitted)",
+            status: "planned",
+            detail:
+`Goal: revise based on reviewer feedback quickly and cleanly.`
+          },
+          {
+            months: [14,15,16],
+            task: "Final paper tweaks (if needed)",
+            status: "planned",
+            detail:
+`Goal: wrap any remaining polishing to align with thesis submission.`
+          }
+        ]
+      },
+
+      {
+        id: 3,
+        name: "SYMBA Simulations (Conditional)",
+        color: "amber",
+        deadline: "Decision by Apr 2026",
+        priority: "OPTIONAL",
+        description:
+`Here, I test whether adding the Africa Millimeter Telescope (AMT) to the EHT improves black-hole imaging.
+
+I compare simulated reconstructions for:
+• EHT without AMT
+• EHT with AMT
+
+Potential metrics:
+UV coverage, image fidelity, resolution, and robustness.
+
+Why conditional:
+This is technically heavy and requires careful metric selection. If the fringe detectability results and the main pipeline are strong, I may drop this project to protect time.
+
+End result:
+Either one focused simulation metric that shows AMT impact, or a conscious decision to drop the project.`,
+        activities: [
+          {
+            months: [2],
+            task: "Decide if worth pursuing (based on Project 4 results)",
+            status: "decision",
+            detail:
+`Goal: make a clean yes/no decision based on time and thesis needs.
+
+What I do:
+• Decide what question SYMBA would answer that my other projects don’t already cover.
+• Check supervisor guidance + relevance to thesis deliverables.
+Deliverable: clear decision and reason.`
+          },
+          {
+            months: [3],
+            task: "If continuing: define one clear metric + start focused simulations",
+            status: "conditional",
+            detail:
+`Goal: avoid scope creep by choosing one metric (e.g. UV coverage metric or image fidelity metric).
+
+Deliverable: a minimal simulation plan + first test run.`
+          },
+          {
+            months: [4,5],
+            task: "If continuing: generate final result; otherwise drop cleanly",
+            status: "conditional",
+            detail:
+`Goal: either finish a focused result quickly or stop without guilt and document why.`
+          }
+        ]
+      },
+
       {
         id: 5,
         name: "Overall PhD Milestones",
         color: "slate",
         deadline: "Thesis + papers",
         priority: "META",
+        description:
+`This line is my “big picture” control panel. It keeps the overall PhD plan visible so I don’t lose the forest for the trees.
+
+It tracks the moments where I need to make decisions (paper path, thesis timing) and the major external deadlines (AfAS, CDR, thesis submission window).`,
         activities: [
-          { months: [0], task: "Focus on short-term projects (Time-lag + Fringe) for upcoming presentations", status: "meta" },
-          { months: [1], task: "End of month checkpoint: Time-lag conference-ready; Fringe core results near-complete", status: "meta" },
-          { months: [2], task: "AfAS conference presentation (end of March) + monitor IRAM proposal status", status: "meta" },
-          { months: [3], task: "AMT CDR presentation (April) + if IRAM awarded, prep for new data", status: "meta" },
-          { months: [4,5], task: "Decide thesis path: 2 papers + thesis vs 3 papers (based on progress)", status: "meta" },
-          { months: [6,7], task: "Ideal checkpoint: core results ready for thesis integration", status: "meta" },
-          { months: [9], task: "Ideal thesis submission target (Oct 31, 2026) – if feasible", status: "meta" },
-          { months: [10,11,12,13], task: "Paper submissions/reviews + thesis drafting (if not submitted)", status: "meta" },
-          { months: [16,17], task: "Realistic final thesis submission (May–Jun 2027) + defence window", status: "meta" }
+          {
+            months: [0],
+            task: "Focus on short-term projects (Time-lag + Fringe) for upcoming presentations",
+            status: "meta",
+            detail:
+`Goal: keep January focused on the two near-term deliverables without letting the main pipeline stall.`
+          },
+          {
+            months: [1],
+            task: "End of month checkpoint: Time-lag conference-ready; Fringe core results near-complete",
+            status: "meta",
+            detail:
+`Goal: confirm Feb deliverables are on track and identify any blockers immediately.`
+          },
+          {
+            months: [2],
+            task: "AfAS conference presentation (end of March) + monitor IRAM proposal status",
+            status: "meta",
+            detail:
+`Goal: deliver AfAS and track IRAM proposal outcome / follow-up requirements.`
+          },
+          {
+            months: [3],
+            task: "AMT CDR presentation (April) + if IRAM awarded, prep for new data",
+            status: "meta",
+            detail:
+`Goal: present CDR results and switch pipeline effort to validation on new data if awarded.`
+          },
+          {
+            months: [4,5],
+            task: "Decide thesis path: 2 papers + thesis vs 3 papers (based on progress)",
+            status: "meta",
+            detail:
+`Goal: decide publication strategy early enough that review cycles don’t surprise me later.`
+          },
+          {
+            months: [6,7],
+            task: "Ideal checkpoint: core results ready for thesis integration",
+            status: "meta",
+            detail:
+`Goal: by mid-year, the thesis narrative should be “writeable” with stable core outputs.`
+          },
+          {
+            months: [9],
+            task: "Ideal thesis submission target (Oct 31, 2026) – if feasible",
+            status: "meta",
+            detail:
+`Goal: if things are strong, submit by Oct 31; if not, consciously shift to the May–Jun 2027 plan.`
+          },
+          {
+            months: [10,11,12,13],
+            task: "Paper submissions/reviews + thesis drafting (if not submitted)",
+            status: "meta",
+            detail:
+`Goal: keep writing moving while papers are under review.`
+          },
+          {
+            months: [16,17],
+            task: "Realistic final thesis submission (May–Jun 2027) + defence window",
+            status: "meta",
+            detail:
+`Goal: finalize, submit, and defend.`
+          }
         ]
       }
-    ];
+    ]);
 
     // -----------------------------
-    // Helpers
+    // Colors
     // -----------------------------
     const colorHex = {
       blue:   getComputedStyle(document.documentElement).getPropertyValue("--blue").trim(),
@@ -423,12 +945,30 @@
       slate:  getComputedStyle(document.documentElement).getPropertyValue("--slate").trim(),
     };
 
+    // -----------------------------
+    // UI state
+    // -----------------------------
+    let selectedMonth = null;
+    let selectedProjectId = null;
+    let selectedActivity = null; // {projectName, task, detail, status, color}
+
+    // -----------------------------
+    // Helpers
+    // -----------------------------
     function getMonthActivities(monthIndex){
       const out = [];
       projects.forEach(p => {
         p.activities.forEach(a => {
           if (a.months.includes(monthIndex)) {
-            out.push({ project: p.name, task: a.task, status: a.status, color: p.color, priority: p.priority });
+            out.push({
+              projectId: p.id,
+              project: p.name,
+              task: a.task,
+              detail: a.detail || a.task,
+              status: a.status,
+              color: p.color,
+              priority: p.priority
+            });
           }
         });
       });
@@ -438,13 +978,8 @@
     function getProjectMonthSummary(project, monthIndex){
       const items = project.activities.filter(a => a.months.includes(monthIndex));
       if (!items.length) return null;
-
       const hasMilestone = items.some(i => i.status === "milestone" || i.status === "meta");
-      return {
-        count: items.length,
-        hasMilestone,
-        statuses: [...new Set(items.map(i => i.status))]
-      };
+      return { count: items.length, hasMilestone };
     }
 
     function statusBadgeClass(status){
@@ -457,8 +992,22 @@
       return "planned";
     }
 
+    function priorityRank(p){
+      // Used for month activity list ordering
+      // META first, then CORE, then HIGH, then OPTIONAL
+      if (p === "META") return 0;
+      if (p === "CORE") return 1;
+      if (p === "HIGH") return 2;
+      return 3;
+    }
+
+    function scrollIntoViewIfNeeded(el){
+      if (!el) return;
+      el.scrollIntoView({ behavior:"smooth", block:"start" });
+    }
+
     // -----------------------------
-    // Render: Project cards
+    // Render: Project cards (clickable)
     // -----------------------------
     function renderCards(){
       const cards = document.getElementById("cards");
@@ -467,12 +1016,14 @@
       projects.forEach(p => {
         const el = document.createElement("div");
         el.className = "card";
+        el.tabIndex = 0;
+        el.setAttribute("role", "button");
+        el.setAttribute("aria-label", `Open description for ${p.name}`);
 
         const priorityClass =
           p.priority === "HIGH" ? "high" :
           p.priority === "CORE" ? "core" :
-          p.priority === "OPTIONAL" ? "optional" :
-          "meta";
+          p.priority === "OPTIONAL" ? "optional" : "meta";
 
         const label = p.priority === "META" ? "META" : p.priority;
 
@@ -486,16 +1037,69 @@
             <span class="chip">${p.deadline}</span>
           </div>
           <div class="tiny">${p.activities.length} activities planned</div>
+          <div class="hint">Click to view project description</div>
         `;
+
+        const open = () => {
+          selectedProjectId = (selectedProjectId === p.id) ? null : p.id;
+          renderProjectPanel();
+        };
+
+        el.addEventListener("click", open);
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+        });
+
         cards.appendChild(el);
       });
     }
 
     // -----------------------------
+    // Render: Project description panel
+    // -----------------------------
+    function renderProjectPanel(){
+      const panel = document.getElementById("projectPanel");
+
+      if (!selectedProjectId) {
+        panel.style.display = "none";
+        panel.innerHTML = "";
+        return;
+      }
+
+      const p = projects.find(x => x.id === selectedProjectId);
+      if (!p) return;
+
+      panel.style.display = "block";
+      panel.innerHTML = `
+        <div class="projectPanelHeader">
+          <div class="projectPanelTitle">
+            <span class="dot" style="background:${colorHex[p.color]}"></span>
+            <h2>${p.name} — Description</h2>
+          </div>
+          <button class="closeBtn" id="closeProjectBtn">Close</button>
+        </div>
+        <p>${escapeHtmlToText(p.description)}</p>
+      `;
+
+      document.getElementById("closeProjectBtn").addEventListener("click", () => {
+        selectedProjectId = null;
+        renderProjectPanel();
+      });
+
+      scrollIntoViewIfNeeded(panel);
+    }
+
+    // Escape helper (prevents accidental HTML injection; keeps newlines via white-space:pre-line)
+    function escapeHtmlToText(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+    }
+
+    // -----------------------------
     // Render: Table header (months)
     // -----------------------------
-    let selectedMonth = null;
-
     function renderHeader(){
       const row = document.getElementById("monthHeaderRow");
       while (row.children.length > 1) row.removeChild(row.lastChild);
@@ -506,6 +1110,7 @@
         th.className = "monthBtn" + (selectedMonth === idx ? " selected" : "");
         th.addEventListener("click", () => {
           selectedMonth = idx;
+          selectedActivity = null;
           renderHeader();
           renderDetails();
         });
@@ -514,7 +1119,7 @@
     }
 
     // -----------------------------
-    // Render: Table body
+    // Render: Table body (rows follow requested order)
     // -----------------------------
     function renderBody(){
       const body = document.getElementById("timelineBody");
@@ -567,68 +1172,117 @@
     }
 
     // -----------------------------
-    // Render: Month details panel
+    // Render: Month details panel + clickable activities
     // -----------------------------
     function renderDetails(){
       const details = document.getElementById("details");
+
       if (selectedMonth === null) {
         details.style.display = "none";
         details.innerHTML = "";
         return;
       }
 
-      const items = getMonthActivities(selectedMonth);
+      const items = getMonthActivities(selectedMonth)
+        .sort((a,b) => priorityRank(a.priority) - priorityRank(b.priority));
 
       details.style.display = "block";
-      details.className = "details";
       details.innerHTML = `
         <div class="detailsHeader">
           <h2>${months[selectedMonth]} – Activities</h2>
           <button class="closeBtn" id="closeDetailsBtn">Close details</button>
         </div>
+        <div class="hint">Tip: click an activity to open its detailed focus notes.</div>
         <div id="detailList"></div>
+        <div id="activityDetail" class="activityDetail"></div>
       `;
 
       document.getElementById("closeDetailsBtn").addEventListener("click", () => {
         selectedMonth = null;
+        selectedActivity = null;
         renderHeader();
         renderDetails();
       });
 
       const list = document.getElementById("detailList");
+      const activityDetail = document.getElementById("activityDetail");
 
-      // Sort so "Overall PhD Milestones" show first (handy), then CORE, then HIGH, then OPTIONAL.
-      const priorityRank = (p) => (p === "META" ? 0 : p === "CORE" ? 1 : p === "HIGH" ? 2 : 3);
+      function renderActivityDetail(){
+        if (!selectedActivity) {
+          activityDetail.style.display = "none";
+          activityDetail.innerHTML = "";
+          return;
+        }
 
-      items
-        .sort((a,b) => priorityRank(a.priority) - priorityRank(b.priority))
-        .forEach(item => {
-          const row = document.createElement("div");
-          row.className = "activity";
-          row.innerHTML = `
-            <span class="dot" style="margin-top:4px;background:${colorHex[item.color]}"></span>
-            <div class="activityMain">
-              <p class="activityProj">${item.project}</p>
-              <p class="activityTask">${item.task}</p>
+        activityDetail.style.display = "block";
+        activityDetail.innerHTML = `
+          <div class="activityDetailHeader">
+            <div class="activityDetailTitle">
+              <span class="dot" style="background:${colorHex[selectedActivity.color]}; margin-top:4px;"></span>
+              <div>
+                <h3>${escapeHtmlToText(selectedActivity.project)} — ${escapeHtmlToText(selectedActivity.task)}</h3>
+                <div class="hint">This is intentionally “general enough” to keep flexibility, but specific enough to keep focus.</div>
+              </div>
             </div>
-            <span class="badge ${statusBadgeClass(item.status)}">${item.status === "meta" ? "milestone" : item.status}</span>
-          `;
-          list.appendChild(row);
+            <button class="closeBtn" id="closeActivityBtn">Close</button>
+          </div>
+          <p>${escapeHtmlToText(selectedActivity.detail)}</p>
+        `;
+
+        document.getElementById("closeActivityBtn").addEventListener("click", () => {
+          selectedActivity = null;
+          renderActivityDetail();
         });
+
+        scrollIntoViewIfNeeded(activityDetail);
+      }
+
+      items.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "activity";
+        row.tabIndex = 0;
+        row.setAttribute("role", "button");
+        row.setAttribute("aria-label", `Open details for ${item.project}: ${item.task}`);
+
+        row.innerHTML = `
+          <span class="dot" style="margin-top:4px;background:${colorHex[item.color]}"></span>
+          <div class="activityMain">
+            <p class="activityProj">${escapeHtmlToText(item.project)}</p>
+            <p class="activityTask">${escapeHtmlToText(item.task)}</p>
+          </div>
+          <span class="badge ${statusBadgeClass(item.status)}">${item.status === "meta" ? "milestone" : item.status}</span>
+        `;
+
+        const open = () => {
+          selectedActivity = item;
+          renderActivityDetail();
+        };
+
+        row.addEventListener("click", open);
+        row.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+        });
+
+        list.appendChild(row);
+      });
 
       if (!items.length) {
         list.innerHTML = `<div class="tiny">No activities logged for this month.</div>`;
       }
+
+      // If an activity was selected previously, re-render its details
+      renderActivityDetail();
+      scrollIntoViewIfNeeded(details);
     }
 
     // -----------------------------
     // Init
     // -----------------------------
     renderCards();
+    renderProjectPanel();
     renderHeader();
     renderBody();
     renderDetails();
   </script>
 </body>
 </html>
-
